@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>chat</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://localhost:8000/socket.io/socket.io.js"></script>
+<script>
+$(function(){
+	var io_socket = io.connect();
+
+	io_socket.on("connect", function() {
+			$("#in").append('<li>aaaaaaaaaaa</li>');
+		});
+	io_socket.on("message", function(message) {
+			$("#in").append('<li>' + message + '</li>');
+		});
+	io_socket.on("disconnect", function() {
+			$("#in").append('<li>bbbbbbbbbbbbb</li>');
+		});
+	$("#btn").click(function() {
+			console.log($("#out").val());
+			io_socket.send($("#out").val());
+			$("#in").append('<li>' + $("#out").val() + '</li>');
+		});	
+});
+</script>
+</head>
+
+<body>
+incoming chat:<ul id="in"></ul>
+<br />
+<input type="text" id="out" />
+<input type="button" id="btn" />
+</body>
+</html>
