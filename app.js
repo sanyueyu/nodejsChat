@@ -9,10 +9,6 @@ function onResponse(req, res) {
 var server = http.createServer(onResponse).listen(8000);
 
 socket_io.listen(server).on("connection", function(socket) {
-		/*onmessage = function(e) {
-				console.log("ssssssssssssssssss");
-				socket.broadcast.emit("message", e.data);
-			};*/
 		socket.on("message",function(msg) {
 				socket.broadcast.emit("message", msg);
 			});
